@@ -1,91 +1,42 @@
-# Welcome to OnSpace AI
+# NAFC Universe: The Enterprise Engineering Operating System
 
-Onspace AI empowers anyone to turn ideas into powerful AI applications in minutes—no coding required. Our free, no-code platform enables effortless creation of custom AI apps; simply describe your vision and our agentic AI handles the rest. The onspace-app, built with React Native and Expo, demonstrates this capability—integrating popular third-party libraries to deliver seamless cross-platform performance across iOS, Android, and Web environments.
+## Welcome to NAFC Universe
 
-## Getting Started
+NAFC Universe is a state-of-the-art engineering operating system designed to transform complex enterprise visions into scalable, intelligent, and autonomous digital assets. It provides a unified architectural framework and a suite of core services to build and manage a diverse universe of AI-powered applications.
 
-### 1. Install Dependencies
+## 🚀 Key Strategic Pillars
 
-```bash
-npm install
-# or
-yarn install
-```
+-   **NU-EOS**: The Enterprise Operating System that governs all engineering and AI principles.
+-   **Reference Architecture**: A modular, microservices-based foundation for enterprise-grade scalability.
+-   **Expert Council**: A multi-disciplinary board of chief architects ensuring the highest standards of quality and security.
+-   **Knowledge Base**: A comprehensive, domain-specific repository providing deep context for AI agents and decision-making.
+-   **World Model & Digital Twin**: Advanced digital representations and virtual replicas for real-time monitoring and optimization.
 
-### 2. Start the Project
+## 📂 Repository Structure V2.0
 
-- Start the development server (choose your platform):
+| Directory     | Description                                                                 |
+| :------------ | :-------------------------------------------------------------------------- |
+| `apps/`       | User-facing applications (e.g., `AICompanionChat`, `AdminPortal`).          |
+| `services/`   | Core microservices (AI, Decision Engine, World Model, Digital Twin, etc.).  |
+| `packages/`   | Shared SDKs and libraries (Auth, Logging, Monitoring, UI, etc.).             |
+| `agents/`     | Autonomous AI agent configurations and orchestrators.                       |
+| `knowledge/`  | Domain-specific knowledge bases for diverse industries.                     |
+| `docs/`       | Centralized documentation, including NU-EOS and Skill Packs.                |
+| `architecture/`| Reference architectures and architectural decision records.                 |
+| `research/`   | Research papers and experimental prototypes.                                |
 
-```bash
-npm run start         # Start Expo development server
-npm run android       # Launch Android emulator
-npm run ios           # Launch iOS simulator
-npm run web           # Start the web version
-```
+## 🛠 Getting Started
 
-- Reset the project (clear cache, etc.):
+To explore the NAFC Universe and its applications, please refer to the documentation in the `docs/` and `architecture/` directories.
 
-```bash
-npm run reset-project
-```
+### 1. AICompanionChat Application
 
-### 3. Lint the Code
+The first application integrated into the NAFC Universe is `AICompanionChat`, located in `apps/AICompanionChat/`. Follow the instructions in its specific README for development and deployment.
 
-```bash
-npm run lint
-```
+## 📜 Governance
 
-## 🚀 Enterprise Features (Patches 001-006)
-
-- **AI Core Integration**: Full support for Ollama (Local AI) and Supabase (Backend).
-- **Interactive Chat UI**: Professional interface with streaming support and generation cancellation.
-- **Markdown & Code Highlighting**: Rich text rendering for AI responses with syntax highlighting.
-- **Chat History**: Full session management with local caching (AsyncStorage) and remote sync (Supabase).
-- **Voice-to-Text**: Integrated audio recording and STT structure for hands-free interaction.
-- **Production Ready**: Dockerized environment for stable deployment.
-
-## 🛠 Main Dependencies
-
-- **Framework**: Expo (React Native) ~53.0.12
-- **UI Kit**: React Native Paper ^5.12.5
-- **State Management**: Zustand ^5.0.2
-- **Backend**: Supabase ^2.50.0
-- **AI Engine**: Ollama (via local/remote API)
-- **Local Caching**: @react-native-async-storage/async-storage
-- **Audio**: expo-av
-- **Markdown**: react-native-markdown-display
-
-## 🐳 Docker Deployment
-
-To run the application in a production-ready container:
-
-1. **Configure Environment**: Create a `.env` file based on `.env.example`.
-2. **Build & Run**:
-   ```bash
-   docker-compose up --build -d
-   ```
-3. **Access**: The app will be available at `http://localhost:8080`.
-
-For a full list of dependencies, see [package.json](./package.json).
-
-## Development Tools
-
-- TypeScript: ~5.8.3
-- ESLint: ^9.25.0
-- @babel/core: ^7.25.2
-
-## Contributing
-
-1. Fork this repository
-2. Create a new branch (`git checkout -b main`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is private ("private": true). For collaboration inquiries, please contact the author.
+All developments within the NAFC Universe are governed by the **Expert Council** and must adhere to the standards defined in the **NU-EOS**.
 
 ---
 
-Feel free to add project screenshots, API documentation, feature descriptions, or any other information as needed.
+*NAFC Universe: Empowering the future of enterprise intelligence.*
