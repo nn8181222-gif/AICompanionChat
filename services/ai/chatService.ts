@@ -80,14 +80,19 @@ export const chatService = {
       for await (const chunk of ollamaClient.chat(messages, signal)) {
         if (chunk.message && chunk.message.content) {
           fullResponseContent += chunk.message.content;
-          store.updateSession(sessionId, {
-            messages: [
-              ...messages,
-              { role: "assistant", content: fullResponseContent },
-            ],
-          });
+          const updatedMessages = [
+            ...messages,
+            { role: "assistant", content: fullResponseContent },
+          ];
+          store.updateSession(sessionId, { messages: updatedMessages });
           yield chunk.message.content;
         }
+      }
+      
+      // Auto-save to Supabase after completion
+      const finalSession = store.sessions[sessionId];
+      if (finalSession) {
+        await this.saveSession("default-user", finalSession);
       }
     } catch (error) {
       console.error("Error during Ollama chat stream:", error);

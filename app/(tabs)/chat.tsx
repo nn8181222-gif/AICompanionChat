@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, ActivityIndicator } from 'react-native';
-import { Appbar, TextInput, IconButton, useTheme, Text } from 'react-native-paper';
+import { View, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, ActivityIndicator, Modal } from 'react-native';
+import { Appbar, TextInput, IconButton, useTheme, Text, Button, Portal } from 'react-native-paper';
 import { useChatStore } from '../../store/chatStore';
 import { chatService } from '../../services/ai/chatService';
 import { MessageBubble } from '../../components/MessageBubble';
 import { TypingIndicator } from '../../components/TypingIndicator';
+import { ChatHistory } from '../../components/ChatHistory';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ChatMessage {
@@ -18,6 +19,7 @@ export default function ChatScreen() {
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [abortController, setAbortController] = useState<AbortController | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
 
   const currentSessionId = useChatStore((state) => state.currentSessionId);
   const sessions = useChatStore((state) => state.sessions);
@@ -102,14 +104,45 @@ export default function ChatScreen() {
     }
   }, [abortController]);
 
+  const startNewChat = () => {
+    const newSessionId = uuidv4();
+    addSession({
+      id: newSessionId,
+      title: 'New Chat',
+      messages: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    setCurrentSession(newSessionId);
+    setShowHistory(false);
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Appbar.Header mode="small">
+        <Appbar.Action icon="history" onPress={() => setShowHistory(true)} />
         <Appbar.Content title={currentSession?.title || 'AI Companion Chat'} />
+        <Appbar.Action icon="plus" onPress={startNewChat} />
         {isTyping && (
           <Appbar.Action icon="stop-circle-outline" onPress={handleCancelGeneration} />
         )}
       </Appbar.Header>
+
+      <Portal>
+        <Modal
+          visible={showHistory}
+          onDismiss={() => setShowHistory(false)}
+          contentContainerStyle={[styles.modalContent, { backgroundColor: colors.background }]}
+        >
+          <ChatHistory onSelectSession={(id) => {
+            setCurrentSession(id);
+            setShowHistory(false);
+          }} />
+          <Button mode="contained" onPress={() => setShowHistory(false)} style={styles.closeButton}>
+            Close
+          </Button>
+        </Modal>
+      </Portal>
 
       <ScrollView
         ref={scrollViewRef}
@@ -154,6 +187,15 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  modalContent: {
+    flex: 1,
+    margin: 20,
+    borderRadius: 12,
+    padding: 10,
+  },
+  closeButton: {
+    margin: 10,
   },
   messageList: {
     paddingVertical: 10,
