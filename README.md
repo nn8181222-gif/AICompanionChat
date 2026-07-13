@@ -35,20 +35,36 @@ npm run reset-project
 npm run lint
 ```
 
-## Main Dependencies
+## 🚀 Enterprise Features (Patches 001-006)
 
-- React Native: 0.79.4
-- React: 19.0.0
-- Expo: ~53.0.12
-- Expo Router: ~5.1.0
-- Supabase: ^2.50.0
-- Other commonly used libraries:  
-  - @expo/vector-icons  
-  - react-native-paper  
-  - react-native-calendars  
-  - lottie-react-native  
-  - react-native-webview  
-  - and more
+- **AI Core Integration**: Full support for Ollama (Local AI) and Supabase (Backend).
+- **Interactive Chat UI**: Professional interface with streaming support and generation cancellation.
+- **Markdown & Code Highlighting**: Rich text rendering for AI responses with syntax highlighting.
+- **Chat History**: Full session management with local caching (AsyncStorage) and remote sync (Supabase).
+- **Voice-to-Text**: Integrated audio recording and STT structure for hands-free interaction.
+- **Production Ready**: Dockerized environment for stable deployment.
+
+## 🛠 Main Dependencies
+
+- **Framework**: Expo (React Native) ~53.0.12
+- **UI Kit**: React Native Paper ^5.12.5
+- **State Management**: Zustand ^5.0.2
+- **Backend**: Supabase ^2.50.0
+- **AI Engine**: Ollama (via local/remote API)
+- **Local Caching**: @react-native-async-storage/async-storage
+- **Audio**: expo-av
+- **Markdown**: react-native-markdown-display
+
+## 🐳 Docker Deployment
+
+To run the application in a production-ready container:
+
+1. **Configure Environment**: Create a `.env` file based on `.env.example`.
+2. **Build & Run**:
+   ```bash
+   docker-compose up --build -d
+   ```
+3. **Access**: The app will be available at `http://localhost:8080`.
 
 For a full list of dependencies, see [package.json](./package.json).
 
