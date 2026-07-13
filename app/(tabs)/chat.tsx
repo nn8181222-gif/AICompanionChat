@@ -7,7 +7,7 @@ import { MessageBubble } from '../../components/MessageBubble';
 import { TypingIndicator } from '../../components/TypingIndicator';
 import { ChatHistory } from '../../components/ChatHistory';
 import { audioService } from '../../services/audioService';
-import { v4 as uuidv4 } from 'uuid';
+import { generateUUID } from '../../utils/uuid';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -36,7 +36,7 @@ export default function ChatScreen() {
   useEffect(() => {
     if (!currentSessionId) {
       // Create a new session if none exists
-      const newSessionId = uuidv4();
+      const newSessionId = generateUUID();
       const newSession = {
         id: newSessionId,
         title: 'New Chat',
@@ -123,7 +123,7 @@ export default function ChatScreen() {
   };
 
   const startNewChat = () => {
-    const newSessionId = uuidv4();
+    const newSessionId = generateUUID();
     addSession({
       id: newSessionId,
       title: 'New Chat',
