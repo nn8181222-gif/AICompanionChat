@@ -6,6 +6,7 @@ import { chatService } from '../../services/ai/chatService';
 import { MessageBubble } from '../../components/MessageBubble';
 import { TypingIndicator } from '../../components/TypingIndicator';
 import { ChatHistory } from '../../components/ChatHistory';
+import { audioService } from '../../services/audioService';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ChatMessage {
@@ -18,6 +19,7 @@ export default function ChatScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [abortController, setAbortController] = useState<AbortController | null>(null);
   const [showHistory, setShowHistory] = useState(false);
 
@@ -104,6 +106,22 @@ export default function ChatScreen() {
     }
   }, [abortController]);
 
+  const handleToggleRecording = async () => {
+    if (isRecording) {
+      const uri = await audioService.stopRecording();
+      setIsRecording(false);
+      if (uri) {
+        const transcript = await audioService.transcribeAudio(uri);
+        setInputMessage(transcript);
+      }
+    } else {
+      const recording = await audioService.startRecording();
+      if (recording) {
+        setIsRecording(true);
+      }
+    }
+  };
+
   const startNewChat = () => {
     const newSessionId = uuidv4();
     addSession({
@@ -162,9 +180,16 @@ export default function ChatScreen() {
         <View style={[styles.inputContainer, { backgroundColor: colors.surface }]}>
           <TextInput
             style={styles.textInput}
-            placeholder="Type a message..."
+            placeholder={isRecording ? "Recording..." : "Type a message..."}
             value={inputMessage}
             onChangeText={setInputMessage}
+            left={
+              <TextInput.Icon 
+                icon={isRecording ? "microphone" : "microphone-outline"} 
+                color={isRecording ? colors.error : colors.primary}
+                onPress={handleToggleRecording} 
+              />
+            }
             right={
               isTyping ? (
                 <TextInput.Icon icon={() => <ActivityIndicator animating={true} color={colors.primary} />} />
